@@ -1,0 +1,20 @@
+{
+  "name": "cc_jf_be_server",
+  "version": "1.0.0",
+  "description": "Journey Flow Backend Server",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "servejf": "node app.js",
+    "nmservejf": "nodemon app.js"
+  },
+  "author": "Cloud Ninjas SAP2k24scholars",
+  "license": "ISC",
+  "dependencies": {
+    "amadeus": "^10.1.0",
+    "axios": "^1.7.7",
+    "express": "^4.21.1",
+    "nodemon": "^3.1.7",
+    "qs": "^6.13.0"
+  }
+}

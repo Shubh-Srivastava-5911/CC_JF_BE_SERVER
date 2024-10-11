@@ -1,0 +1,20 @@
+Amadeus Travel API
+
+user name : shubhs.2803@gmail.com
+password : #amadeusHBUHS@1234
+API key : 8RJvBAYPv323Z7Lb8yIzLEGWmkoUQHCB
+API secret : ORZMZq57t0vC7IHa
+
+
+example response after token request
+{
+  type: 'amadeusOAuth2Token',
+  username: 'shubhs.2803@gmail.com',
+  application_name: 'CC-JF-BE-SERVER',
+  client_id: '8RJvBAYPv323Z7Lb8yIzLEGWmkoUQHCB',
+  token_type: 'Bearer',
+  access_token: 'F6CJmpk0Z4odMckrvJVSyY7BoAfL',
+  expires_in: 1799,
+  state: 'approved',
+  scope: ''
+}
