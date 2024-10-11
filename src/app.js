@@ -15,14 +15,16 @@
     * http  -  direct functions to use
 */
 
-const strings = require('./res/string/string_res');
-const logger = require('./util/logger');
-const FlightEndpoint = require('./api/amadeus/setup');
+const strings = require('../res/string/string_res');
+const logger = require('../util/logger');
+const FlightEndpoint = require('../api/amadeus/setup');
 
 const http_module = require('http');
 const express = require('express');
+const serverless = require('serverless-http');
 
 const appex = express();
+const router = express.Router();
 
 /*********************************************************************************************************************************************/
 
@@ -45,15 +47,16 @@ logger.log('check');
 // });
 // server.listen('3000');
 
-appex.listen('3000');
+// appex.listen('3000');
+appex.use('/.netlify/journeyflow/app', router);
 
-appex.get('/', (request, response) => {
+router.get('/', (request, response) => {
     response.send('you are connected with journey flow backend server\n');
 });
-appex.get('/person', (request, response) => {
+router.get('/person', (request, response) => {
     response.send('this is person route\n');
 });
-appex.get('/person/:name/:age', (request, response) => {
+router.get('/person/:name/:age', (request, response) => {
     console.log(request.params);
     response.send({
         params: request.params,
@@ -61,8 +64,12 @@ appex.get('/person/:name/:age', (request, response) => {
     });
 });
 
-appex.get('/info/flight/direct_routes/:loc', (request, response) => {
+router.get('/info/flight/direct_routes/:loc', (request, response) => {
     FlightEndpoint.getDirectRoutes(request.params.loc).then((res) => {
         response.send(res);
     })
 });
+
+module.exports = {
+    handler : serverless(appex)
+}

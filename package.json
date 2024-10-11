@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "servejf": "node app.js",
-    "nmservejf": "nodemon app.js"
+    "nmservejf": "nodemon app.js",
+    "start" : "netlify-lambda serve src",
+    "build" : "netlify-lambda build src"
   },
   "author": "Cloud Ninjas SAP2k24scholars",
   "license": "ISC",
@@ -14,7 +16,9 @@
     "amadeus": "^10.1.0",
     "axios": "^1.7.7",
     "express": "^4.21.1",
+    "netlify-lambda": "^2.0.16",
     "nodemon": "^3.1.7",
-    "qs": "^6.13.0"
+    "qs": "^6.13.0",
+    "serverless-http": "^3.2.0"
   }
 }
