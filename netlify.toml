@@ -1,2 +1,10 @@
+[functions]
+  external_node_modules = ["express"]
+  node_bundler = "esbuild"
+[[redirects]]
+  force = true
+  from = "/app/journeyflow/*"
+  status = 200
+  to = "/.netlify/functions/api/:splat"
 [build]
-    functions = "journeyflow"
+    functions = "srcpub"
