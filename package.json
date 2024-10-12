@@ -2,13 +2,13 @@
   "name": "cc_jf_be_server",
   "version": "1.0.0",
   "description": "Journey Flow Backend Server",
-  "main": "app.js",
+  "main": "api.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "servejf": "node app.js",
-    "nmservejf": "nodemon app.js",
-    "start" : "netlify-lambda serve src",
-    "build" : "netlify-lambda build src"
+    "servejf": "node ./functions/api.js",
+    "nmservejf": "nodemon ./functions/api.js",
+    "start": "netlify-lambda serve functions",
+    "build": "netlify-lambda build functions"
   },
   "author": "Cloud Ninjas SAP2k24scholars",
   "license": "ISC",
@@ -16,6 +16,7 @@
     "amadeus": "^10.1.0",
     "axios": "^1.7.7",
     "express": "^4.21.1",
+    "netlify-cli": "^17.37.0",
     "netlify-lambda": "^2.0.16",
     "nodemon": "^3.1.7",
     "qs": "^6.13.0",

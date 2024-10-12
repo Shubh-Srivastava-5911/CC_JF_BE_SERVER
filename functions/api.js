@@ -48,7 +48,7 @@ logger.log('check');
 // server.listen('3000');
 
 // appex.listen('3000');
-appex.use('/app/journeyflow/', router);
+appex.use('/.netlify/functions/api', router);
 
 router.get('/', (request, response) => {
     response.send('you are connected with journey flow backend server\n');
