@@ -40,15 +40,52 @@ module.exports = class FlightEndpoint {
             clientSecret: str.apiSecret
         });
     }
-    
+
     static getDirectRoutes(location) {
         this.refreshInstance1();
         return this.apiInstance1?.airport.directDestinations.get({
-            departureAirportCode : location,
+            departureAirportCode: location,
         }).then(function (response) {
             return response.data;
         }).catch(function (responseError) {
             return responseError.code;
         });
+    }
+
+    static getNearestAirports(latitude, longitude) {
+        this.refreshInstance1();
+        return this.apiInstance1?.referenceData.locations.airports.get({
+            longitude: longitude,
+            latitude: latitude,
+            radius: 200
+        }).then(function (response) {
+            return response.data;
+        }).catch(function (responseError) {
+            return responseError.code;
+        });
+    }
+
+    static getCityAirports(city) {
+        this.refreshInstance1();
+        return this.apiInstance1?.referenceData.locations.get({
+            subType: 'AIRPORT',
+            keyword: city,
+            countryCode: 'IN'
+        }).then(function (response) {
+            return response.data;
+        }).catch(function (responseError) {
+            return responseError.code;
+        });
+    }
+
+    static getPossibleRoutes(start, end) {
+        // get city airports
+        // if not, set direct_route = false, get nearest airports to source
+        // get destination airports
+        // if not, set direct_route = false, get nearest airports to destination
+        // if direct_route == true, check if direct routes from source to destination exists
+        // if not, set direct_route = false
+        // if direct_route == false, create nested loops to check all routes from nearest starting airports to nearest ending airports
+        // return the list
     }
 }

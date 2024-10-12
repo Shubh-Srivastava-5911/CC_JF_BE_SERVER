@@ -69,7 +69,32 @@ router.get('/info/flight/direct_routes/:loc', (request, response) => {
         response.send(res);
     })
 });
+router.get('/info/flight/get_nearest_airports/:lat/:lon', (request, response) => {
+    FlightEndpoint.getNearestAirports(request.params.lat, request.params.lon).then((res) => {
+        response.send(res);
+    })
+});
+router.get('/info/flight/get_city_airports/:city', (request, response) => {
+    FlightEndpoint.getCityAirports(request.params.city).then((res) => {
+        response.send(res);
+    })
+});
 
 module.exports = {
     handler : serverless(appex)
 }
+
+
+/*
+function convertDMSToDD(degrees, minutes, seconds, direction) {
+  let dd = degrees + (minutes / 60) + (seconds / 3600);
+  if (direction === "S" || direction === "W") {
+    dd = dd * -1;  // South and West are negative in coordinates
+  }
+  return dd;
+}
+
+// Example conversion for 30°12'52.5"N, 74°57'49.3"E
+let latitude = convertDMSToDD(30, 12, 52.5, "N");
+let longitude = convertDMSToDD(74, 57, 49.3, "E");
+*/
