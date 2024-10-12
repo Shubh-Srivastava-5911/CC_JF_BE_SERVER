@@ -6,9 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "servejf": "node ./functions/api.js",
-    "nmservejf": "nodemon ./functions/api.js",
-    "start": "netlify-lambda serve functions",
-    "build": "netlify-lambda build functions"
+    "nmservejf": "nodemon ./functions/api.js"
   },
   "author": "Cloud Ninjas SAP2k24scholars",
   "license": "ISC",

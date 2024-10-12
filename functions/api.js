@@ -47,7 +47,7 @@ logger.log('check');
 // });
 // server.listen('3000');
 
-// appex.listen('3000');
+appex.listen('3000');
 appex.use('/.netlify/functions/api', router);
 
 router.get('/', (request, response) => {
