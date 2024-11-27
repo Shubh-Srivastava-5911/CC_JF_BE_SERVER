@@ -13,11 +13,13 @@
   "dependencies": {
     "amadeus": "^10.1.0",
     "axios": "^1.7.7",
+    "country-state-city": "^3.2.1",
     "express": "^4.21.1",
     "netlify-cli": "^17.37.0",
     "netlify-lambda": "^2.0.16",
     "nodemon": "^3.1.7",
     "qs": "^6.13.0",
-    "serverless-http": "^3.2.0"
+    "serverless-http": "^3.2.0",
+    "wft-geodb-js-client": "^2.0.3"
   }
 }

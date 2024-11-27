@@ -18,6 +18,7 @@
 const strings = require('../res/string/string_res');
 const logger = require('../util/logger');
 const FlightEndpoint = require('../api/amadeus/setup');
+const CitiesEndpoint = require('../api/geodb/setup');
 
 const http_module = require('http');
 const express = require('express');
@@ -77,6 +78,34 @@ router.get('/info/flight/get_nearest_airports/:lat/:lon', (request, response) =>
 router.get('/info/flight/get_city_airports/:city', (request, response) => {
     FlightEndpoint.getCityAirports(request.params.city).then((res) => {
         response.send(res);
+    })
+});
+router.get('/info/cities/get_states_of_india', (request, response) => {
+    CitiesEndpoint.getStatesOfIndia().then((res) => {
+        response.send(res);
+    })
+});
+router.get('/info/cities/get_cities_of_state/:stateCode', (request, response) => {
+    CitiesEndpoint.getCitiesOfState(request.params.stateCode).then((res) => {
+        response.send(res);
+    })
+});
+router.get('/info/flight/get_routes_between/:srcCityName/:srcStateCode/:dstCityName/:dstStateCode', (request, response) => {
+    let sLatLon, dLatLon;
+    CitiesEndpoint.getLatLonOfCity(request.params.srcCityName, request.params.srcStateCode)
+    .then((res) => {
+        sLatLon = res;
+        return CitiesEndpoint.getLatLonOfCity(request.params.dstCityName, request.params.dstStateCode);
+    })
+    .then((res) => {
+        dLatLon = res;
+        return FlightEndpoint.getRoutesBetween(sLatLon.lat, sLatLon.lon, dLatLon.lat, dLatLon.lon);
+    })
+    .then((res) => {
+        response.send(res);
+    })
+    .catch((error) => {
+        console.log(error);
     })
 });
 

@@ -1,0 +1,57 @@
+Preferred Approach:
+- Clone the main branch locally and install npm modules (refer to "package.json").
+- Always work directly on the cloned main branch.
+- This will allow you to easily fetch any modifications from the remote repository during your local development.
+- However, when pushing changes, do not push directly to the main branch.
+- Fetch any updates from the origin main branch.
+- Create a new feature branch, push it to the origin repository, and submit a pull request (PR) for approval.
+- You can delete the feature branch locally afterward.
+- It’s good practice to create a new local PR branch for each push and delete it after use.
+
+
+**********************************************************************************************************************
+
+The project follows the Netlify deployment structure (do not modify any naming conventions).
+
+To contribute to the API, there is a folder named "api" in the project.
+
+Create a subfolder under "api" (use the API name as the folder name).
+Example: "google_geolocation"
+
+Inside the API folder (e.g., "google_geolocation"), create the following three files:
+- setup.js — Main source code file.
+- string.json — String resources file to avoid hardcoded values in the code (optional).
+- info.txt — API information file for other developers (optional).
+
+In setup.js, follow the Node.js module pattern with OOP principles.
+(Node.js module pattern is similar to vanilla JavaScript but uses different import/export syntax.)
+
+Create classes with static methods (preferred unless there is a specific need for instances).
+
+Do not return data directly from methods; return it as JavaScript promises.
+
+This ensures that asynchronous operations remain in sync with the flow. For example, the method might try to return data before an API call completes, resulting in an undefined error.
+
+The setup file can contain multiple classes, and each class can have multiple methods.
+
+**********************************************************************************************************************
+
+now if you want to test the API, go to "api.js" file inside "functions" folder
+
+import your setup file contents here in "app.js" file, you can refer how other APIs are imported
+
+create a temporary route and call the static methods
+
+on terminal run following command to test locally
+"npm run nmservejf"
+
+go to "http://localhost:3000/.netlify/functions/api/"
+
+add your defined route ahead of that link to test working
+
+before pushing, don't delete your test code, it will help to refer while developing for main pipeline integration, you can comment out simply
+
+**********************************************************************************************************************
+
+actual deployed link
+"https://taupe-bonbon-9036c6.netlify.app/.netlify/functions/api"

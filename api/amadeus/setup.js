@@ -3,49 +3,68 @@ const str = require('./string.json');
 const Amadeus = require('amadeus');
 
 module.exports = class FlightEndpoint {
-    static apiInstance1 = null;
+    static apiInstance = null;
 
-    static refreshInstance1() {
-        this.apiInstance1 = new Amadeus({
+    /**
+     * 
+     */
+    static refreshInstance() {
+        this.apiInstance = new Amadeus({
             clientId: str.apiKey,
             clientSecret: str.apiSecret
         });
     }
 
-    static getDirectRoutes(location) {
-        this.refreshInstance1();
-        return this.apiInstance1?.airport.directDestinations.get({
-            departureAirportCode: location,
+    /**
+     * 
+     * @param {*} location 
+     * @returns 
+     */
+    static getDirectRoutes(arptCode) {
+        this.refreshInstance();
+        return this.apiInstance?.airport.directDestinations.get({
+            departureAirportCode: arptCode,
         }).then(function (response) {
             return response.data;
-        }).catch(function (responseError) {
-            return responseError.code;
+        }).catch(function (error) {
+            throw error;
         });
     }
 
+    /**
+     * 
+     * @param {*} latitude 
+     * @param {*} longitude 
+     * @returns 
+     */
     static getNearestAirports(latitude, longitude) {
-        this.refreshInstance1();
-        return this.apiInstance1?.referenceData.locations.airports.get({
+        this.refreshInstance();
+        return this.apiInstance?.referenceData.locations.airports.get({
             longitude: longitude,
             latitude: latitude,
             radius: 200
         }).then(function (response) {
             return response.data;
-        }).catch(function (responseError) {
-            return responseError.code;
+        }).catch(function (error) {
+            throw error;
         });
     }
 
+    /**
+     * 
+     * @param {*} city 
+     * @returns 
+     */
     static getCityAirports(city) {
-        this.refreshInstance1();
-        return this.apiInstance1?.referenceData.locations.get({
+        this.refreshInstance();
+        return this.apiInstance?.referenceData.locations.get({
             subType: 'AIRPORT',
             keyword: city,
             countryCode: 'IN'
         }).then(function (response) {
             return response.data;
-        }).catch(function (responseError) {
-            return responseError.code;
+        }).catch(function (error) {
+            throw error;
         });
     }
 
@@ -58,6 +77,49 @@ module.exports = class FlightEndpoint {
         // if not, set direct_route = false
         // if direct_route == false, create nested loops to check all routes from nearest starting airports to nearest ending airports
         // return the list
+    }
+
+    static getRoutesBetween(srcCityLatitude, srcCityLongitude, dstCityLatitude, dstCityLongitude) {
+        let srcAirports, dstAirports;
+        let finalRoutes = [];
+        return this.getNearestAirports(srcCityLatitude, srcCityLongitude)
+            .then((res) => {
+                srcAirports = res;
+                return this.getNearestAirports(dstCityLatitude, dstCityLongitude);
+            })
+            .then((res) => {
+                dstAirports = res;
+                let routePromises = [];
+                for(let srcAirport of srcAirports) {
+                    let tempRoutes;
+                    let tempPromise = this.getDirectRoutes(srcAirport.iataCode)
+                    .then((res) => {
+                        tempRoutes = res;
+                        for(let route of tempRoutes) {
+                            for(let dstAirport of dstAirports) {
+                                if(dstAirport.iataCode == route.iataCode) {
+                                    finalRoutes.push(route);
+                                }
+                            }
+                        }
+                    })
+                    .catch((error) => {
+                        throw error;
+                    });
+                    routePromises.push(tempPromise);
+                }
+                return Promise.all(routePromises).then(() => {
+                    return {
+                      srcAirports,
+                      dstAirports,
+                      finalRoutes,
+                    };
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+                throw error;
+            });
     }
 }
 
