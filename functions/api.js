@@ -100,9 +100,9 @@ router.get('/info/cities/get_states_of_india', (request, response) => {
 });
 router.get('/info/cities/get_cities_of_state/:stateCode', (request, response) => {
     CitiesEndpoint.getCitiesOfState(request.params.stateCode).then((res) => {
-        response.set('Access-Control-Allow-Origin', '*');  // Allow all origins (or specify your Wix domain instead of '')
-        response.set('Access-Control-Allow-Methods', 'GET');  // Allow GET requests
-        response.set('Access-Control-Allow-Headers', 'Content-Type');  // Allow Content-Type header
+        // response.set('Access-Control-Allow-Origin', '*');  // Allow all origins (or specify your Wix domain instead of '')
+        // response.set('Access-Control-Allow-Methods', 'GET');  // Allow GET requests
+        // response.set('Access-Control-Allow-Headers', 'Content-Type');  // Allow Content-Type header
         
         response.json(res);
     })
