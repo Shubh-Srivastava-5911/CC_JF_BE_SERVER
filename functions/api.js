@@ -90,7 +90,7 @@ router.options('/info/cities/get_states_of_india', (request, response) => {
 });
 router.get('/info/cities/get_states_of_india', (request, response) => {
     CitiesEndpoint.getStatesOfIndia().then((res) => {
-        response.set('Access-Control-Allow-Origin', '');  // Allow all origins (or specify your Wix domain instead of '')
+        response.set('Access-Control-Allow-Origin', '*');  // Allow all origins (or specify your Wix domain instead of '')
         response.set('Access-Control-Allow-Methods', 'GET');  // Allow GET requests
         response.set('Access-Control-Allow-Headers', 'Content-Type');  // Allow Content-Type header
         
