@@ -50,6 +50,8 @@ logger.log('check');
 
 appex.listen('3000');
 appex.use('/.netlify/functions/api', router);
+const cors = require('cors');
+appex.use(cors()); // Enable CORS for all routes
 
 router.get('/', (request, response) => {
     response.send('you are connected with journey flow backend server\n');
