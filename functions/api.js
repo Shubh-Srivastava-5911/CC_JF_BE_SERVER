@@ -100,7 +100,7 @@ router.get('/info/cities/get_states_of_india', (request, response) => {
 });
 router.get('/info/cities/get_cities_of_state/:stateCode', (request, response) => {
     CitiesEndpoint.getCitiesOfState(request.params.stateCode).then((res) => {
-        response.send(res);
+        response.json(res);
     })
 });
 router.get('/info/flight/get_routes_between/:srcCityName/:srcStateCode/:dstCityName/:dstStateCode', (request, response) => {
