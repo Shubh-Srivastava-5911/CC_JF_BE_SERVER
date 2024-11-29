@@ -51,7 +51,6 @@ module.exports = class CitiesEndpoint {
                 throw new Error("City not found");
             })
             .catch((error) => {
-                console.log(error);
                 return error.code;
             });
     }

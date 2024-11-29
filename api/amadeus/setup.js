@@ -90,36 +90,46 @@ module.exports = class FlightEndpoint {
             .then((res) => {
                 dstAirports = res;
                 let routePromises = [];
-                for(let srcAirport of srcAirports) {
+                for (let srcAirport of srcAirports) {
                     let tempRoutes;
                     let tempPromise = this.getDirectRoutes(srcAirport.iataCode)
-                    .then((res) => {
-                        tempRoutes = res;
-                        for(let route of tempRoutes) {
-                            for(let dstAirport of dstAirports) {
-                                if(dstAirport.iataCode == route.iataCode) {
-                                    finalRoutes.push(route);
+                        .then((res) => {
+                            tempRoutes = res;
+                            for (let route of tempRoutes) {
+                                for (let dstAirport of dstAirports) {
+                                    if (dstAirport.iataCode == route.iataCode) {
+                                        finalRoutes.push({ srcAirport, route, dstAirport });
+                                    }
                                 }
                             }
-                        }
-                    })
-                    .catch((error) => {
-                        throw error;
-                    });
+                        })
+                        .catch((error) => {
+                            throw error;
+                        });
                     routePromises.push(tempPromise);
                 }
                 return Promise.all(routePromises).then(() => {
-                    return {
-                      srcAirports,
-                      dstAirports,
-                      finalRoutes,
-                    };
+                    return finalRoutes;
                 });
             })
             .catch((error) => {
                 console.log(error);
                 throw error;
             });
+    }
+
+    static getFlightsBetween(srcArptCode, dstArptCode, startDate) {
+        this.refreshInstance();
+        return this.apiInstance?.shopping.flightOffersSearch.get({
+            originLocationCode: srcArptCode,
+            destinationLocationCode: dstArptCode,
+            departureDate: startDate,
+            adults: 1
+        }).then(function (response) {
+            return response.data;
+        }).catch(function (error) {
+            throw error; // Prints error description
+        });
     }
 }
 
