@@ -67,7 +67,7 @@ router.get('/person/:name/:age', (request, response) => {
     });
 });
 
-router.get('/info/flight/direct_routes/:loc', (request, response) => {
+router.get('/jf/info/direct_routes/:loc', (request, response) => {
     FlightEndpoint.getDirectRoutes(request.params.loc).then((res) => {
         response.send(res);
     })
@@ -75,7 +75,7 @@ router.get('/info/flight/direct_routes/:loc', (request, response) => {
         throw error;
     });
 });
-router.get('/info/flight/get_nearest_airports/:lat/:lon', (request, response) => {
+router.get('/jf/info/get_nearest_airports/:lat/:lon', (request, response) => {
     FlightEndpoint.getNearestAirports(request.params.lat, request.params.lon).then((res) => {
         response.send(res);
     })
@@ -83,7 +83,7 @@ router.get('/info/flight/get_nearest_airports/:lat/:lon', (request, response) =>
         throw error;
     });
 });
-router.get('/info/flight/get_nearest_city_airports/:cityName/:stateCode', (request, response) => {
+router.get('/jf/info/get_nearest_city_airports/:cityName/:stateCode', (request, response) => {
     CitiesEndpoint.getLatLonOfCity(request.params.cityName, request.params.stateCode)
     .then((res) => {
         return FlightEndpoint.getNearestAirports(res.lat, res.lon);
@@ -95,7 +95,7 @@ router.get('/info/flight/get_nearest_city_airports/:cityName/:stateCode', (reque
         throw error;
     });
 });
-router.get('/info/flight/get_city_airports/:cityName', (request, response) => {
+router.get('/jf/info/get_city_airports/:cityName', (request, response) => {
     FlightEndpoint.getCityAirports(request.params.cityName).then((res) => {
         response.send(res);
     })
@@ -103,13 +103,13 @@ router.get('/info/flight/get_city_airports/:cityName', (request, response) => {
         throw error;
     });
 });
-// router.options('/info/cities/get_states_of_india', (request, response) => {
+// router.options('/jf/info/get_states_of_india', (request, response) => {
 //     response.set('Access-Control-Allow-Origin', '*');
 //     response.set('Access-Control-Allow-Methods', 'GET, OPTIONS');  // Allow OPTIONS and GET methods
 //     response.set('Access-Control-Allow-Headers', 'Content-Type');  // Allow Content-Type header
 //     response.status(200).send();  // Respond with a 200 status code for OPTIONS request
 // });
-router.get('/info/cities/get_states_of_india', (request, response) => {
+router.get('/jf/info/get_states_of_india', (request, response) => {
     CitiesEndpoint.getStatesOfIndia().then((res) => {
         // response.set('Access-Control-Allow-Origin', '*');  // Allow all origins (or specify your Wix domain instead of '')
         // response.set('Access-Control-Allow-Methods', 'GET');  // Allow GET requests
@@ -122,7 +122,7 @@ router.get('/info/cities/get_states_of_india', (request, response) => {
         throw error;
     });
 });
-router.get('/info/cities/get_cities_of_state/:stateCode', (request, response) => {
+router.get('/jf/info/get_cities_of_state/:stateCode', (request, response) => {
     CitiesEndpoint.getCitiesOfState(request.params.stateCode).then((res) => {
         response.json(res);
     })
@@ -130,7 +130,7 @@ router.get('/info/cities/get_cities_of_state/:stateCode', (request, response) =>
         throw error;
     });
 });
-router.get('/info/cities/get_lat_lon_of_city/:cityName/:stateCode', (request, response) => {
+router.get('/jf/info/get_lat_lon_of_city/:cityName/:stateCode', (request, response) => {
     CitiesEndpoint.getLatLonOfCity(request.params.cityName, request.params.stateCode).then((res) => {
         response.json(res);
     })
@@ -138,7 +138,7 @@ router.get('/info/cities/get_lat_lon_of_city/:cityName/:stateCode', (request, re
         throw error;
     });
 });
-router.get('/info/flight/get_routes_between/:srcCityName/:srcStateCode/:dstCityName/:dstStateCode', (request, response) => {
+router.get('/jf/info/get_routes_between/:srcCityName/:srcStateCode/:dstCityName/:dstStateCode', (request, response) => {
     let sLatLon, dLatLon;
     CitiesEndpoint.getLatLonOfCity(request.params.srcCityName, request.params.srcStateCode)
     .then((res) => {
@@ -156,7 +156,7 @@ router.get('/info/flight/get_routes_between/:srcCityName/:srcStateCode/:dstCityN
         throw error;
     });
 });
-router.get('/info/flight/get_flights_between/:srcArptCode/:dstArptCode/:startDate', (request, response) => {
+router.get('/jf/info/get_flights_between/:srcArptCode/:dstArptCode/:startDate', (request, response) => {
     FlightEndpoint.getFlightsBetween(request.params.srcArptCode, request.params.dstArptCode, request.params.startDate)
     .then((res) => {
         response.json(res);

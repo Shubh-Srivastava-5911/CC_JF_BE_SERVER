@@ -61,6 +61,6 @@ actual deployed link
 
 example of hiting the API:
 * local updates
-    http://localhost:3000/.netlify/functions/api//info/flight/get_routes_between/Bengaluru/KA/Delhi/DL
+    http://localhost:3000/.netlify/functions/api/jf/info/get_routes_between/Bengaluru/KA/Delhi/DL
 * production updates
-    https://taupe-bonbon-9036c6.netlify.app/.netlify/functions/api/info/flight/get_routes_between/Bengaluru/KA/Delhi/DL
+    https://taupe-bonbon-9036c6.netlify.app/.netlify/functions/api/jf/info/get_routes_between/Bengaluru/KA/Delhi/DL
