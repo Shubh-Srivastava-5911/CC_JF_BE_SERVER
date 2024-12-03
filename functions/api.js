@@ -169,6 +169,7 @@ router.get('/jf/info/get_flights_between/:srcArptCode/:dstArptCode/:startDate', 
 router.get('/jf/info/get_trains_between/:trainNum/:startDate', (request, response) => {
     TrainEndpoint.getTrainsBetween(request.params.trainNum, request.params.startDate)
     .then((res) => {
+        console.log(res)
         response.json(res);
     })
     .catch((error) => {
