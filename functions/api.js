@@ -19,6 +19,7 @@ const strings = require('../res/string/string_res');
 const logger = require('../util/logger');
 const FlightEndpoint = require('../api/amadeus/setup');
 const CitiesEndpoint = require('../api/geodb/setup');
+const TrainEndpoint = require('../api/indianrail/setup');
 
 const http_module = require('http');
 const express = require('express');
@@ -165,6 +166,15 @@ router.get('/jf/info/get_flights_between/:srcArptCode/:dstArptCode/:startDate', 
         throw error;
     });
 });
+router.get('/jf/info/get_trains_between/:trainNum/:startDate', (request, response) => {
+    TrainEndpoint.getTrainsBetween(request.params.trainNum, request.params.startDate)
+    .then((res) => {
+        response.json(res);
+    })
+    .catch((error) => {
+        throw error;
+    })
+})
 
 module.exports = {
     handler : serverless(appex)

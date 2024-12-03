@@ -1,0 +1,15 @@
+Indian Rail API
+
+user name : shubhs.2803@gmail.com
+password : #Shubh@2803
+API key : dc794fd2e85fab8e4bd1ae26bd44f42c
+API secret : e2475d7717cda3badea5059709405891
+
+
+
+IRCTC Rapid API
+
+user name : shubhs.2803@gmail.com
+password : #Shubh@2803
+API key : c01798897bmshd112c88d70df705p153c21jsna34169dbe2a0
+API secret : 
