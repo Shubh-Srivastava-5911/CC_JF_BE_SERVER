@@ -26,6 +26,7 @@ module.exports = class TrainEndpoint {
                 if (error) {
                     reject(error); // Reject the promise if an error occurs
                 } else {
+                    console.log(body)
                     resolve(JSON.parse(body)); // Resolve the promise with the parsed body
                 }
             });
