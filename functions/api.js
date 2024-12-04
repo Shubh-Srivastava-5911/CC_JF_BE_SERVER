@@ -20,6 +20,7 @@ const logger = require('../util/logger');
 const FlightEndpoint = require('../api/amadeus/setup');
 const CitiesEndpoint = require('../api/geodb/setup');
 const TrainEndpoint = require('../api/indianrail/setup');
+const FirebaseEndpoint = require("../services/firebase/setup");
 
 const http_module = require('http');
 const express = require('express');
@@ -175,7 +176,36 @@ router.get('/jf/info/get_trains_between/:trainNum/:startDate', (request, respons
     .catch((error) => {
         throw error;
     })
-})
+});
+
+
+router.get('/jf/info/jffb/get_journeys/:email', (request, response) => {
+    FirebaseEndpoint.firestoreReadJourneys(request.params.email)
+    .then((res) => {
+        response.json(res);
+    })
+    .catch((error) => {
+        throw error;
+    })
+});
+
+router.get('/jf/info/jffb/put_journey/:email', (request, response) => {
+    // const newJourney = {
+    //     name: 'My New Journey',
+    //     startDate: '2024-12-04',
+    //     destination: 'Goa',
+    //     notes: 'Remember to pack sunscreen!'
+    // };
+    // http://localhost:3000/.netlify/functions/api//jf/info/jffb/put_journey/testuser@journeyflow.com
+    FirebaseEndpoint.firestorePutJourney(request.params.email, request.body)
+    .then((res) => {
+        response.json(res);
+    })
+    .catch((error) => {
+        throw error;
+    })
+});
+
 
 module.exports = {
     handler : serverless(appex)

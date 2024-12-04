@@ -16,6 +16,8 @@
     "cors": "^2.8.5",
     "country-state-city": "^3.2.1",
     "express": "^4.21.1",
+    "firebase": "^11.0.2",
+    "firebase-admin": "^13.0.1",
     "netlify-cli": "^17.37.0",
     "netlify-lambda": "^2.0.16",
     "node-fetch": "^2.7.0",
