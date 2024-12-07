@@ -197,7 +197,7 @@ router.get('/jf/info/jffb/put_journey/:email', (request, response) => {
     //     notes: 'Remember to pack sunscreen!'
     // };
     // http://localhost:3000/.netlify/functions/api//jf/info/jffb/put_journey/testuser@journeyflow.com
-    FirebaseEndpoint.firestorePutJourney(request.params.email, request.body)
+    FirebaseEndpoint.firestorePutJourney(request.params.email, JSON.parse(request.body))
     .then((res) => {
         response.json(res);
     })
